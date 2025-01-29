@@ -10,7 +10,7 @@ export const Blog = () => {
   const fetchBlogData = async () => {
     try {
       const response = await axios.get(`/api/v1/blog/${id}`);
-      setData(response.data.blog);
+      setData(response.data.data);
     } catch (error) {
       console.error("Error fetching blog:", error);
     }

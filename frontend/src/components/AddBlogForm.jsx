@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,9 +25,11 @@ const AddBlogForm = () => {
   });
   const [image, setImage] = useState(null);
   const [authorImage, setAuthorImage] = useState(null);
+  const [loading, setLoading] = useState(false); // State for loading
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when submitting
 
     const formData = new FormData();
     formData.append("title", data.title);
@@ -38,9 +41,7 @@ const AddBlogForm = () => {
 
     try {
       const response = await axios.post("/api/v1/blog/create-blog", formData);
-      console.log(response);
-
-      toast.success("Blog created successfully!");
+      toast.success(response?.data?.message || "Blog created successfully!");
 
       setData({
         title: "",
@@ -55,6 +56,8 @@ const AddBlogForm = () => {
         error.response?.data?.message || "Failed to create blog post"
       );
       console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -154,8 +157,9 @@ const AddBlogForm = () => {
               setFile={setAuthorImage}
             />
 
-            <Button type="submit" className="w-full">
-              Publish Blog Post
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? "Posting..." : "Publish Blog Post"}{" "}
+              {/* Conditional text */}
             </Button>
           </form>
         </CardContent>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios"; 
+import axios from "axios";
 import Card from "./Card";
 import { Button } from "./ui/button";
 
@@ -12,8 +12,7 @@ const CardItems = () => {
   const fetchBlogs = async () => {
     try {
       const response = await axios.get("/api/v1/blog");
-      setBlogs(response.data.blogs || []);
-      console.log(response.data.blogs || []);
+      setBlogs(response.data.data || []);
     } catch (err) {
       console.error("Error fetching blogs:", err);
       setError(err.response?.data?.message || "Failed to fetch blogs.");
@@ -68,6 +67,13 @@ const CardItems = () => {
           onClick={() => setMenu("Startup")}
         >
           Startup
+        </Button>
+        <Button
+          variant="secondary"
+          type="button"
+          onClick={() => setMenu("LifeStyle")}
+        >
+          LifeStyle
         </Button>
       </div>
 

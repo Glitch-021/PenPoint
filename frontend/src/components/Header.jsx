@@ -1,6 +1,27 @@
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Header = () => {
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(`/api/v1/blog/email`, { email });
+      console.log(response);
+
+      toast.success("User registered successfully");
+
+      setEmail("");
+    } catch (error) {
+      toast.error(error.message);
+      console.error(error.message);
+    }
+  };
+
   return (
     <div className="py-5 px-5 md:px-12 lg:px-28">
       <div className="text-center my-8">
@@ -12,12 +33,15 @@ const Header = () => {
         </p>
         <form
           className="flex items-center justify-between gap-2 max-w-[500px] scale-75 sm:scale-100 mx-auto mt-10 border border-black shadow-[-7px_7px_0px_#000000]"
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit}
         >
           <input
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
             className="pl-4 py-3 outline-none w-full h-full"
+            required
           />
           <Button
             variant="secondary"

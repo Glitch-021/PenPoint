@@ -33,7 +33,9 @@ const Sidebar = ({ setActiveComponent }) => {
           Blog List
         </Button>
 
-        <Button variant="ghost" className="w-full justify-start border border-black shadow-[-7px_7px_0px_#000000] hover:scale-105 active:scale-95 transition-all duration-300">
+        <Button variant="ghost" className="w-full justify-start border border-black shadow-[-7px_7px_0px_#000000] hover:scale-105 active:scale-95 transition-all duration-300"
+          onClick={() => setActiveComponent("subscription")}
+          >
           <BellRing className="mr-2 h-4 w-4" />
           Subscription
         </Button>

@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { Bell, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const AdminNavbar = () => {
+const AdminNavbar = ({ data }) => {
   return (
     <nav className="bg-white border-b h-16 px-6 flex items-center justify-between">
       {/* Left side - User info */}
@@ -21,7 +22,7 @@ const AdminNavbar = () => {
       <div className="flex items-center space-x-8">
         <div className="flex space-x-6">
           <div className="text-center">
-            <p className="font-semibold">12</p>
+            <p className="font-semibold">{data?.length}</p>
             <p className="text-sm text-gray-500">Blogs</p>
           </div>
           <div className="text-center">
